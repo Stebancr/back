@@ -11,6 +11,7 @@ app.use(json())
 app.use(cors())
 app.use('/v1/signos', router);
 
-app.listen(4000, ()=>{
+const port = process.env.PORT || 9001
+app.listen(port, ()=>{
     console.log('listening at port 4000');
 })
