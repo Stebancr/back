@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const collections = require('../models/collections.js')
 
 // Función para verificar las credenciales
 const verifyCredentials = async (role, username, password) => {
@@ -168,6 +169,17 @@ const addUser = async (req, res) => {
     }
 };
 
+const viewUser = async (filter = {}) => {
+    try {
+        const ganadoresFiltrados = await collections.Codigo.find({activo:false})//.then((codigos)=>{console.log(codigos)});
+        
+        return res.json(ganadoresFiltrados);
+    } catch (error) {
+        console.error("Error al filtrar ganadores:", error);
+        throw new Error("Error al obtener la lista de ganadores");
+    }
+};
+
 module.exports = {
     getAllSignos,
     getOneSigno,
@@ -175,5 +187,6 @@ module.exports = {
     login,
     ChangePassword,
     getHoroscopoByPersona,
-    addUser
+    addUser,
+    viewUser
 };

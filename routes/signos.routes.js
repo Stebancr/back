@@ -10,6 +10,7 @@ router
     .patch('/:signoEditar', signoController.updateSigno)
     .post('/login', signoController.login)
     .post('/ChangePassword', signoController.ChangePassword) // Nueva ruta para cambiar la contraseña
-    .post('/addUser', signoController.addUser);
+    .post('/addUser', signoController.addUser)
+    .get('/viewUser', signoController.viewUser);
 
 module.exports = router;
