@@ -111,10 +111,8 @@ const addUser = async (req, res) => {
         const newUser = { username, fechaNacimiento, cedula, correo, celular, ciudad, password, role };
 
         const nuevoUsuario = new collections.Usuario(newUser);
-        nuevoUsuario.save().then((usuario) => console.log("Usuario agregado:", usuario))
-            .catch((err) => console.error("Error al agregar el Usuario:", err));
-
-        return res.status(201).json({ message: `Nuevo usuario agregado con éxito.` });
+        const usuarioGuardado = await nuevoUsuario.save();
+        return res.status(201).json({ message: `Nuevo usuario agregado con éxito.`, data: usuarioGuardado });
     } catch (error) {
         console.error('Error al agregar el nuevo usuario:', error);
         return res.status(500).json({ error: 'Error en el servidor' });
