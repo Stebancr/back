@@ -137,24 +137,25 @@ const getHoroscopoByPersona = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
-    const { username, password, role } = req.body;
+    const { username, fechaNacimiento, cedula, correo, celular, ciudad, password, role } = req.body;
 
     if (!['admin', 'user'].includes(role)) {
         return res.status(400).json({ error: 'Rol no válido' });
     }
 
-    const filePath = path.join(__dirname, `../../db/${role}.json`);
+    //const filePath = path.join(__dirname, `../../db/${role}.json`);
+
 
     try {
-        const data = await fs.readFile(filePath, 'utf-8');
+        const data = Producto;
         const usersData = JSON.parse(data);
 
-        const userExists = usersData[`${role}s`].some(user => user.username === username);
+        const userExists = usersData[`${role}s`].some(user => user.email === email);
         if (userExists) {
             return res.status(400).json({ error: 'El usuario ya existe' });
         }
 
-        const newUser = { username, password };
+        const newUser = { username, fechaNacimiento, cedula, correo, celular, ciudad, password };
 
         usersData[`${role}s`].push(newUser);
 
